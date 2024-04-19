@@ -1,4 +1,5 @@
-ing Puppet to kill a process named killmenow
-exec { 'pkill -f killmenow':
-path => '/usr/bin/: /usr/local/bin/:/bin/'
-}
+# kill a command
+
+exec {'kill':
+  command => '/usr/bin/pkill killmenow',
+  }
