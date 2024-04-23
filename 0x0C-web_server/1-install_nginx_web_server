@@ -1,23 +1,12 @@
 #!/usr/bin/env bash
+#This script installs nginx
+# Install nginx
 
-# Update package lists and install Nginx
 sudo apt-get update
-sudo apt-get install -y nginx
+sudo apt-get -y install nginx
+sudo ufw allow 'Nginx HTTP'
+# Configure nginx to listen on port 80 and serve "Hello World!" at the root
+sudo bash -c 'echo "Hello World!" > /var/www/html/index.html'
 
-# Create a temporary HTML file with Hello World content
-echo "<html><body>Hello World!</body></html>" | sudo tee /var/www/html/index.html
-
-# Check if Nginx is already running and stop it
-if sudo service nginx status | grep -q "active (running)"; then
-    sudo service nginx stop
-fi
-
-# Start Nginx and ensure it listens on port 80
-sudo nginx -t && sudo nginx -g 'daemon off;'
-
-# Test Nginx by querying it with curl
-if curl -s http://localhost:80/ | grep -q "Hello World!"; then
-    echo "Nginx installed and configured successfully!"
-else
-    echo "Error: Nginx configuration failed."
-fi
+# Restart nginx
+sudo service nginx restart
