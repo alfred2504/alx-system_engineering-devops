@@ -1,8 +1,23 @@
 #!/usr/bin/env bash
-# Bash script that configures a new Ubuntu machine
 
-apt-get update -y
-apt-get install nginx -y
-ufw allow 80
-sh -c 'echo "Hello World!" > /var/www/html/index.html'
-service nginx restart
+# Update package lists and install Nginx
+sudo apt-get update
+sudo apt-get install -y nginx
+
+# Create a temporary HTML file with Hello World content
+echo "<html><body>Hello World!</body></html>" | sudo tee /var/www/html/index.html
+
+# Check if Nginx is already running and stop it
+if sudo service nginx status | grep -q "active (running)"; then
+    sudo service nginx stop
+fi
+
+# Start Nginx and ensure it listens on port 80
+sudo nginx -t && sudo nginx -g 'daemon off;'
+
+# Test Nginx by querying it with curl
+if curl -s http://localhost:80/ | grep -q "Hello World!"; then
+    echo "Nginx installed and configured successfully!"
+else
+    echo "Error: Nginx configuration failed."
+fi
