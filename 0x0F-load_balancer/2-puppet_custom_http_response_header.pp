@@ -1,4 +1,4 @@
-dd a custom HTTP header with Puppet
+add a custom HTTP header with Puppet
 exec { 'apt-update':
   command => '/usr/bin/apt-get -y update',
   path    => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin',
