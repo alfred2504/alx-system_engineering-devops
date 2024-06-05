@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+
+init_config:
+  ## @param keystone_server_url - string - required
+  ## Where your identity server lives.
+  ## Note that the server must support Identity API v3
+  #
+  keystone_server_url: "https://<KEYSTONE_SERVER_ENDPOINT>:<PORT>/"
+
+instances:
+  ## @param name - string - required
+  ## Unique identifier for this instance.
+  #
+  - name: "<INSTANCE_NAME>"
+
+    ## @param user - object - required
+    ## User credentials
+    ## Password authentication is the only auth method supported.
+    ## `user` object expects the parameter `username`, `password`,
+    ## and `user.domain.id`.
+    ##
+    ## `user` should resolve to a structure like:
+    ##
+    ##  {'password': '<PASSWORD>', 'name': '<USERNAME>', 'domain': {'id': '<DOMAINE_ID>'}}
+    #
+    user:
+      password: "<PASSWORD>"
+      name: datadog
+      domain:
+        id: "<DOMAINE_ID>"
+
+logs:
+  - type: file
+    path: "<LOG_FILE_PATH>"
+    source: openstack

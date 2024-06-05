@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+{
+  "identity:get_project": "rule:admin_required or project_id:%(target.project.id)s or role:datadog_monitoring",
+  "identity:list_projects": "rule:admin_required or role:datadog_monitoring"
+}
